@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Campaign Manager</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 15px; text-decoration: none; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .status { padding: 5px; border-radius: 5px; color: white; }
+        .status-DRAFT { background-color: gray; }
+        .status-SCHEDULED { background-color: orange; }
+        .status-IN_PROGRESS { background-color: blue; }
+        .status-COMPLETED { background-color: green; }
+        .status-FAILED { background-color: red; }
+    </style>
+</head>
+<body>
+    <h1>Email Campaign Management System</h1>
+    <nav>
+        <a href="{% url 'campaign_dashboard' %}">Dashboard</a> |
+        <a href="{% url 'campaign_create' %}">Create Campaign</a> |
+        <a href="{% url 'recipient_upload' %}">Upload Recipients</a>
+    </nav>
+    
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</body>
+</html>

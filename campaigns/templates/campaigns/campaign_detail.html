@@ -1,0 +1,29 @@
+{% extends 'campaigns/base.html' %}
+
+{% block content %}
+    <h2>Details for: {{ campaign.name }}</h2>
+    <p><strong>Status:</strong> <span class="status status-{{ campaign.status }}">{{ campaign.get_status_display }}</span></p>
+    <p><strong>Subject:</strong> {{ campaign.subject }}</p>
+
+    <h3>Delivery Logs</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Recipient Email</th>
+                <th>Status</th>
+                <th>Sent At</th>
+                <th>Failure Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log.recipient.email }}</td>
+                <td>{{ log.get_status_display }}</td>
+                <td>{{ log.sent_at|default:"N/A" }}</td>
+                <td>{{ log.failure_reason|default:"-" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
